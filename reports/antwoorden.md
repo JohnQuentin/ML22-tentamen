@@ -1,6 +1,10 @@
 # Tentamen ML2022-2023
 
 De opdracht is om de audio van 10 cijfers, uitgesproken door zowel mannen als vrouwen, te classificeren. De dataset bevat timeseries met een wisselende lengte.
+  * Classificatie
+  * Tijdserie
+  * Padding ivm lengte (wisselende lengte)
+
 
 In [references/documentation.html](references/documentation.html) lees je o.a. dat elke timestep 13 features heeft.
 Jouw junior collega heeft een neuraal netwerk gebouwd, maar het lukt hem niet om de accuracy boven de 67% te krijgen. Aangezien jij de cursus Machine Learning bijna succesvol hebt afgerond hoopt hij dat jij een paar betere ideeen hebt.
@@ -13,21 +17,41 @@ Het model in deze file heeft in de eerste hidden layer 100 units, in de tweede l
 De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings voor dropout zou zijn.
 
 - Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
+  * Sterke kanten Algemeen
+  * Zwakke kanten Algemeen
+  * Sterke kanten specifieke probleem
+  * Zwakke kanten specifieke probleem
+
 - Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
+  * keuze LinearConfig
+  * keuze dropout
 
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
 
 - Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
+  * Effect: Neemt het gemiddelde van x over de dimension 1 (Mogelijk de aantal d te verkleinen), (mogelijk is plat maken ook een optie)
+  * Welke probleem probeert hij op te lossen:
+  * Wat gaat er fout als hij het niet doet?
+
 - Hoe had hij dit ook kunnen oplossen?
+  * Hoe had dit anders opgelost kunnen worden?
 - Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
+  * Voor en nadelen
 
 ### 1c
 Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitleggen wat een betere architectuur zou zijn.
 
 - Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
+  * Aangeven wat voor soort probleem het is. 
+  * Hoeveel D's het heeft
+  * layers in welke combinaties 
+
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
+  * Motiveren van mijn antwoord.
+
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
+  * 
 
 ### 1d
 Implementeer jouw veelbelovende model: 
@@ -56,7 +80,7 @@ Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.
 Implementeer de hypertuning voor jouw architectuur:
 - zorg dat je model geschikt is voor hypertuning
 - je mag je model nog wat aanpassen, als vraag 1d daar aanleiding toe geeft. Als je in 1d een ander model gebruikt dan hier, geef je model dan een andere naam zodat ik ze naast elkaar kan zien.
-- Stel dat je
+- (Opmerking) Stel dat je nog wat wilt aanpassen, wat zou je dan aanpassen? (vraag was niet volledig)
 - voeg jouw model in op de juiste plek in de `tune.py` file.
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
