@@ -4,7 +4,7 @@ De opdracht is om de audio van 10 cijfers, uitgesproken door zowel mannen als vr
   * Classificatie
   * Tijdserie
   * Padding ivm lengte (wisselende lengte)
-
+  * Welke vraag wordt er nu precies beantwoord?
 
 In [references/documentation.html](references/documentation.html) lees je o.a. dat elke timestep 13 features heeft.
 Jouw junior collega heeft een neuraal netwerk gebouwd, maar het lukt hem niet om de accuracy boven de 67% te krijgen. Aangezien jij de cursus Machine Learning bijna succesvol hebt afgerond hoopt hij dat jij een paar betere ideeen hebt.
@@ -28,11 +28,13 @@ De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings
 
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
+  * Het heeft wisselde lengte. Door dit te doen breng je het terug naar het gemiddelde van alle 13 (boven naar beneden kijken)
 
 - Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
   * Effect: Neemt het gemiddelde van x over de dimension 1 (Mogelijk de aantal d te verkleinen), (mogelijk is plat maken ook een optie)
   * Welke probleem probeert hij op te lossen:
   * Wat gaat er fout als hij het niet doet?
+
 
 - Hoe had hij dit ook kunnen oplossen?
   * Hoe had dit anders opgelost kunnen worden?
@@ -51,16 +53,25 @@ Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitlegg
   * Motiveren van mijn antwoord.
 
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
-  * 
+  * architectuur wordt units/filyers/kernelsize enzo bedoeld???????????
 
 ### 1d
 Implementeer jouw veelbelovende model: 
 
 - Maak in `model.py` een nieuw nn.Module met jouw architectuur
+  * Goed kijken of ik nog steeds een Linear model wil. 
+
 - Maak in `settings.py` een nieuwe config voor jouw model
+  * Past het bij de gekozen arcitectuur?
+
 - Train het model met enkele educated guesses van parameters. 
+  * Goed kijken welke het beste is. 
+
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
+  * Beantwoorden let op vergeet de afbeelding niet. 
+
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
+  * Beantwoorden van de vraag en motivatie
 
 Hieronder een voorbeeld hoe je een plaatje met caption zou kunnen invoegen.
 
@@ -79,17 +90,32 @@ Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.
 ### 2a
 Implementeer de hypertuning voor jouw architectuur:
 - zorg dat je model geschikt is voor hypertuning
+  * In vraag 1 pas je waarschijnlijk dingen aan, dan hier ook aanpassen. 
+
 - je mag je model nog wat aanpassen, als vraag 1d daar aanleiding toe geeft. Als je in 1d een ander model gebruikt dan hier, geef je model dan een andere naam zodat ik ze naast elkaar kan zien.
+  * Duidelijk
+
 - (Opmerking) Stel dat je nog wat wilt aanpassen, wat zou je dan aanpassen? (vraag was niet volledig)
 - voeg jouw model in op de juiste plek in de `tune.py` file.
+  * Verwijzen naar het juiste model??????????
+
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
+  * Zoek ruimte aanpassen let op als ik daar dingen aanpas, ik dat ook doe op andere plekken ivm namen
+
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
+  * Beantwoorden en argumenteren van antwoord. 
 
 ### 2b
 - Analyseer de resultaten van jouw hypertuning; visualiseer de parameters van jouw hypertuning en sla het resultaat van die visualisatie op in `reports/img`. Suggesties: `parallel_coordinates` kan handig zijn, maar een goed gekozen histogram of scatterplot met goede kleuren is in sommige situaties duidelijker! Denk aan x en y labels, een titel en units voor de assen.
+  * Analyseren
+  * Visualiseren 
+  * less = more!
+
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
+  * Argumenteren
 
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
+ * 
 
 ### 2c
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
