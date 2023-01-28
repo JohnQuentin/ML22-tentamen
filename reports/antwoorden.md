@@ -1,10 +1,6 @@
 # Tentamen ML2022-2023
 
 De opdracht is om de audio van 10 cijfers, uitgesproken door zowel mannen als vrouwen, te classificeren. De dataset bevat timeseries met een wisselende lengte.
-  * Classificatie
-  * Tijdserie
-  * Padding ivm lengte (wisselende lengte)
-  * Welke vraag wordt er nu precies beantwoord?
 
 In [references/documentation.html](references/documentation.html) lees je o.a. dat elke timestep 13 features heeft.
 Jouw junior collega heeft een neuraal netwerk gebouwd, maar het lukt hem niet om de accuracy boven de 67% te krijgen. Aangezien jij de cursus Machine Learning bijna succesvol hebt afgerond hoopt hij dat jij een paar betere ideeen hebt.
@@ -17,14 +13,35 @@ Het model in deze file heeft in de eerste hidden layer 100 units, in de tweede l
 De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings voor dropout zou zijn.
 
 - Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
-  * Sterke kanten Algemeen
-  * Zwakke kanten Algemeen
-  * Sterke kanten specifieke probleem
-  * Zwakke kanten specifieke probleem
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
+Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
+
 
 - Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
-  * keuze LinearConfig
-  * keuze dropout
+#### <span style="background-color: #197d2b">Antwoord:</span>
+De vraagstelling vanuit de collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (n=10) uitgesproken in het Arabic door mannelijke en vrouwelijke (cat. n=2) sprekers. Dit betekent dat er in totaal 20 classes zijn die geïdentificeerd dienen te worden. Kijkend naar het geschreven model zien we het volgende:
+```
+(Getalen overgenomen om het leesbaar te maken)
+nn.Linear(config["13"], config["100"]),
+nn.ReLU(),
+nn.Linear(config["100"], config["10"]),
+nn.Dropout(config["0.5"]),
+nn.ReLU(),
+nn.Linear(config["10"], config["20"]),
+```
+De stappen die gemaakt worden in dit model zijn nogal groot. Van 13 units naar 100 units is een vrij grote stapt. Vervolgens wordt er een rectified linear unit (ReLU) toegepast als activatie functie (f(x)=max(0,x). De volgende stap is ook erg groot namelijk van 100 units terug naar 10 units. Daarna wordt er een Dropout functie toegepast om overfitting te voorkomen. Ook deze staat erg hoog afgesteld namelijk op 0.5 (i.e. de helft van de neurons wordt uitgeschakeld). Volgens de literatuur staat de dropout gebruikelijk tussen de 0.2 en 0.5. Na de dropout wordt er opnieuw een ReLU toegepast. Tot slot wordt er nog één stap gezet van 10 units naar 20 units. Gezien de vraag is een output van 20 units logisch. 
+
+Mijn advies in deze zou zijn om de Dropout terug te brengen naar 0.2 en een logische verdeling te maken qua grote van units in de nn.Linear functie. Daarnaast, gezien de omvang van de data, is het ook verstandig om te kijken na een extra laag. Met het toevoegen van een extra laag kunnen de units beter verdeeld worden. In een handmatige test met de volgende configuratie is een nauwkeurigheid behaald van 0.7394
+```
+nn.Linear(config["13"], config["64"]),
+nn.ReLU(),
+nn.Linear(config["64"], config["32"]),
+nn.Dropout(config["0.2"]),
+nn.ReLU(),
+nn.Linear(config["32"], config["20"]),
+```
+
 
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
