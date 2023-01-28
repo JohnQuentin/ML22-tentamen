@@ -45,18 +45,32 @@ nn.Linear(config["32"], config["20"]),
 
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
-  * Het heeft wisselde lengte. Door dit te doen breng je het terug naar het gemiddelde van alle 13 (boven naar beneden kijken)
-
 - Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
-  * Effect: Neemt het gemiddelde van x over de dimension 1 (Mogelijk de aantal d te verkleinen), (mogelijk is plat maken ook een optie)
-  * Welke probleem probeert hij op te lossen:
-  * Wat gaat er fout als hij het niet doet?
-
+#### <span style="background-color: #197d2b">Antwoord:</span>
+De complete functie is
+```
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        x = x.mean(dim=1)
+        x = self.encoder(x)
+        return x
+```
+Het deel x.mean(dim=1) pakt het gemiddelde van alles regels in een block. Uitkomst is één regel met 13 groepen van getallen. (e.g. -2.5929 -2.889 0.29554 -0.067409 0.28635 0.20898 0.41408 0.38878 0.37271 0.16329 0.0050341 0.12431 0.44326). Door dit te doen is het probleem opgelost dat de blocks verschillende lengtes hebben. Nadeel hiervan is wel dat er veel informatie verloren gaat. Deze stap is nodig omdat het gekozen model niet overweg kan met verschillende block lengtes. 
 
 - Hoe had hij dit ook kunnen oplossen?
-  * Hoe had dit anders opgelost kunnen worden?
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Andere opties zijn:
+nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
+
+
 - Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
-  * Voor en nadelen
+#### <span style="background-color: #197d2b">Antwoord:</span>
+* nn.Flatten(): hervormd de data naar een 1-dim array
+  * Nadeel: Kost veel geheugen en processing kracht. Daarnaast zorgt deze methoden er ook voor dat je (ruimtelijke) informatie verliest.
+* nn.AvgPool2d(): pakt het gemiddelde van de gekozen window.
+  * Nadeel: door het gemiddelde te pakken kan je belangrijke elementen uit de data kwijtraken. Daarnaast hebben outliers een groot effect op het gemiddelde. 
+* nn.MaxPool2d(): pakt de mix waarde van de gekozen window. 
+  * Nadeel: ook deze methoden kan leiden tot het verlies van informatie. Dit komt omdat alleen de max waarde van elke window wordt meegenomen. Door deze methoden gaan kleine details verloren. 
+
 
 ### 1c
 Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitleggen wat een betere architectuur zou zijn.
