@@ -146,6 +146,8 @@ Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een rel
 |optimizer|Adam|Adam|Adam|Adam|Adam|Adam|
 |learning_rate|0.001|0.001|0.001|0.001|0.001|0.001|
 
+In de grafiek hieronder is te zien dat de eerste en laatste run beide geleidelijk dalen. Waar de andere vier runs vrij snel dalen voor dat ze afvlakken. Deze vier runs stoppen rond de 12 – 14 epoch met leren. De andere twee lijken door te gaan met leren nog tot in de 22ste epoch.
+
 <figure>
   <p align = "center">
     <img src="img/Loss train.png" style="width:100%">
@@ -154,6 +156,8 @@ Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een rel
     </figcaption>
   </p>
 </figure>
+
+In deze grafiek hieronder zien we hetzelfde als in de grafiek hierboven. De eerste en laatste run zijn gelijk en de andere vier zijn gelijk aan elkaar. 
 
 <figure>
   <p align = "center">
