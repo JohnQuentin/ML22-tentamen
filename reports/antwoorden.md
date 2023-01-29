@@ -76,40 +76,63 @@ nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitleggen wat een betere architectuur zou zijn.
 
 - Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Zoals eerder beschreven gaat het om een classificatie vraag. De dataset bestaat uit 8800 (10 cijfers x 10 herhalingen x 88 sprekers) tijdreeksen van 13 MFCCs. Na verkenning komende de volgende architecturen als beste naar boven gezien de vraag en gegeven dataset:
 
+
+<figure>
+  <p align = "center">
+    <img src="img/RNN GRU LSTM.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 1. RNN, GRU en LSTM</b>
+    </figcaption>
+  </p>
+</figure>
+
+* RNN
+  * Goed voor tekst, audio of tijdreeksgegevens.
+  * Heeft een “hidden state” zodat het netwerk informatie van eerdere elementen onthoud. 
+  * Zeer geschrikt voor sequentie data.
+* LSTM
+  * Type RNN maar beter in het vasthouden van langetermijnrelaties in de data. 
+  * Complexere structuur dan RNN zijnde: Input, output en forget gates.
+  * Vaak gebruikt voor vertaal modellen en taalmodellering 
+* GRU
+  * Type RNN maar met een eenvoudiger structuur dan LSTM.
+  * Gemakkelijk te trainen (i.v.m. LSTM).
+  * Twee poorten: Update gate en een reset gate
+
+Omdat we hier te maken hebben met sequentie data is het van belang om de context te bewaren uit het verleden (RNN grootste probleem is vanishing gradient problem). LSTM en GRU kunnen dat beide. Gezien de data en het vraagstuk valt mijn keuze op het maken van een GRU-model. Deze is makkelijker te trainen, minder complex maar biedt vrijwel dezelfde mogelijkheden. 
 
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
 
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder). Achter elk antwoord direct de overweging beschreven. 
+* Input: 13 | I.v.m. de aantal features (aantal MFCC coefficients).
+* Hidden size: 64 | Mijn gevoel is dat dit een goed startpunt is. Dit kan nog veranderen naar 128 of zelfs 256, afhankelijk van de resultaten uit het experiment. 
+* Output: 20 | Dit komt overeen met de aantal classes die geïdentificeerd moeten worden. 
+* Number of layers: 2 of 4 | Op die manier zijn er voldoende lagen om het model te kunnen trainen. 
+* Loss function: Cross-Entropy-Loss | Zoals besproken tijdens het college is dit het best passend bij classificatie. 
+* Learning rate: 0,001 | Op basis van eerder uitgevoerde experimenten tijdens het college lijkt mij dit de beste keuze. 
+* Optimizer: Adam | Deze neemt informatie mee (past gradients) om de learning rate aan te passen. Dit is het best passend voor dit vraagstuk. 
+
 
 ### 1d
 Implementeer jouw veelbelovende model: 
-
-- Maak in `model.py` een nieuw nn.Module met jouw architectuur
-  * Goed kijken of ik nog steeds een Linear model wil. 
-
+- Maak in `model.py` een nieuw nn.Module met jouw architectuur 
 - Maak in `settings.py` een nieuwe config voor jouw model
-  * Past het bij de gekozen arcitectuur?
-
 - Train het model met enkele educated guesses van parameters. 
-  * Goed kijken welke het beste is. 
 
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
   * Beantwoorden let op vergeet de afbeelding niet. 
 
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
-  * Beantwoorden van de vraag en motivatie
+
 
 Hieronder een voorbeeld hoe je een plaatje met caption zou kunnen invoegen.
 
-<figure>
-  <p align = "center">
-    <img src="img/motivational.png" style="width:50%">
-    <figcaption align="center">
-      <b> Fig 1.Een motivational poster voor studenten Machine Learning (Stable Diffusion)</b>
-    </figcaption>
-  </p>
-</figure>
+
 
 ## Vraag 2
 Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.py`.
