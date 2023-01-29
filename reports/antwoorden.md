@@ -109,13 +109,17 @@ Omdat we hier te maken hebben met sequentie data is het van belang om de context
 
 #### <span style="background-color: #197d2b">Antwoord:</span>
 Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder). Achter elk antwoord direct de overweging beschreven. 
-* Input: 13 | I.v.m. de aantal features (aantal MFCC coefficients).
-* Hidden size: 64 | Mijn gevoel is dat dit een goed startpunt is. Dit kan nog veranderen naar 128 of zelfs 256, afhankelijk van de resultaten uit het experiment. 
-* Output: 20 | Dit komt overeen met de aantal classes die geïdentificeerd moeten worden. 
-* Number of layers: 2 of 4 | Op die manier zijn er voldoende lagen om het model te kunnen trainen. 
-* Loss function: Cross-Entropy-Loss | Zoals besproken tijdens het college is dit het best passend bij classificatie. 
-* Learning rate: 0,001 | Op basis van eerder uitgevoerde experimenten tijdens het college lijkt mij dit de beste keuze. 
-* Optimizer: Adam | Deze neemt informatie mee (past gradients) om de learning rate aan te passen. Dit is het best passend voor dit vraagstuk. 
+
+|Name|Option|Reasoning|
+|----|---|---|
+|Input|13|I.v.m. de aantal features (aantal MFCC coefficients)|
+|Hidden size|64|Mijn gevoel is dat dit een goed startpunt is. Dit kan nog veranderen naar 128 of zelfs 256, afhankelijk van de resultaten uit het experiment.|
+|Output|20|Dit komt overeen met de aantal classes die geïdentificeerd moeten worden.|
+|Number of layers|2 of 4|Op die manier zijn er voldoende lagen om het model te kunnen trainen.|
+|Loss function|Cross-Entropy-Loss|Zoals besproken tijdens het college is dit het best passend bij classificatie.|
+|Learning rate|0,001|Op basis van eerder uitgevoerde experimenten tijdens het college lijkt mij dit de beste keuze.|
+|Optimizer|Adam|Deze neemt informatie mee (past gradients) om de learning rate aan te passen. Dit is het best passend voor dit vraagstuk.|
+
 
 
 ### 1d
@@ -123,14 +127,23 @@ Implementeer jouw veelbelovende model:
 - Maak in `model.py` een nieuw nn.Module met jouw architectuur 
 - Maak in `settings.py` een nieuwe config voor jouw model
 - Train het model met enkele educated guesses van parameters. 
-
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
-  * Beantwoorden let op vergeet de afbeelding niet. 
-
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
 
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Omdat de input, output en de dropout al redelijk vaststaan heb ik hier alleen geëxperimenteerd met de hidden size en de num_layers. De optimizer is de beste keuze voor dit vraagstuk en expirimenteren met de learning_rate zou te veel gaan lijken op hypertuning. 
+Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een relatief groot effect heeft het aanpassen van de hidden size. De aanpassing van de num_layers heeft een minder groot effect dan verwacht. 
 
-Hieronder een voorbeeld hoe je een plaatje met caption zou kunnen invoegen.
+
+| Score |0.9389|0.9439|0.9632|0.9582|0.9605|0.9366|
+|----|---|---|---|---|---|---|
+|input|13|13|13|13|13|13|
+|output|20|20|20|20|20|20|
+|hidden|64|128|256|256|128|64|
+|dropout|0.2|0.2|0.2|0.2|0.2|0.2|
+|num_layers|2|2|2|4|4|4|
+|optimizer|Adam|Adam|Adam|Adam|Adam|Adam|
+|learning_rate|0.001|0.001|0.001|0.001|0.001|0.001|
 
 
 
@@ -140,20 +153,13 @@ Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.
 ### 2a
 Implementeer de hypertuning voor jouw architectuur:
 - zorg dat je model geschikt is voor hypertuning
-  * In vraag 1 pas je waarschijnlijk dingen aan, dan hier ook aanpassen. 
-
 - je mag je model nog wat aanpassen, als vraag 1d daar aanleiding toe geeft. Als je in 1d een ander model gebruikt dan hier, geef je model dan een andere naam zodat ik ze naast elkaar kan zien.
-  * Duidelijk
-
 - (Opmerking) Stel dat je nog wat wilt aanpassen, wat zou je dan aanpassen? (vraag was niet volledig)
 - voeg jouw model in op de juiste plek in de `tune.py` file.
-  * Verwijzen naar het juiste model??????????
-
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
-  * Zoek ruimte aanpassen let op als ik daar dingen aanpas, ik dat ook doe op andere plekken ivm namen
-
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
-  * Beantwoorden en argumenteren van antwoord. 
+
+
 
 ### 2b
 - Analyseer de resultaten van jouw hypertuning; visualiseer de parameters van jouw hypertuning en sla het resultaat van die visualisatie op in `reports/img`. Suggesties: `parallel_coordinates` kan handig zijn, maar een goed gekozen histogram of scatterplot met goede kleuren is in sommige situaties duidelijker! Denk aan x en y labels, een titel en units voor de assen.
