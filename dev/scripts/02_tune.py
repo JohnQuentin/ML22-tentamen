@@ -9,7 +9,7 @@ from ray.tune.schedulers.hb_bohb import HyperBandForBOHB
 from ray.tune.search.bohb import TuneBOHB
 
 from tentamen.data import datasets
-from tentamen.model import Accuracy, Linear
+from tentamen.model import Accuracy, grumodel
 
 from tentamen.train import trainloop
 from tentamen.settings import grumodelSearchSpace, presets
