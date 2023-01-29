@@ -45,3 +45,23 @@ class Accuracy:
         the correct class.
         """
         return (yhat.argmax(dim=1) == y).sum() / len(yhat)
+
+class grumodel(nn.Module):
+    def __init__(self, config: Dict) -> None:
+        super().__init__()
+
+        self.rnn = nn.GRU(
+            input_size=config["input"],
+            hidden_size=config["hidden"],
+            dropout=config["dropout"],
+            batch_first=True,
+            num_layers=config["num_layers"],
+        )
+
+        self.linear = nn.Linear(config["hidden"], config["output"])
+
+    def forward(self, x: Tensor) -> Tensor:
+        x, _ = self.rnn(x)
+        last_step = x[:, -1, :]
+        yhat = self.linear(last_step)
+        return yhat
