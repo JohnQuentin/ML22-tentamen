@@ -1,0 +1,11 @@
+Failure # 1 (occurred at 2023-01-29_18-33-03)
+[36mray::ImplicitFunc.train()[39m (pid=29095, ip=10.0.0.15, repr=train)
+  File "/home/azureuser/.cache/pypoetry/virtualenvs/tentamen-IVqS6D8t-py3.9/lib/python3.9/site-packages/ray/tune/trainable/trainable.py", line 367, in train
+    raise skipped from exception_cause(skipped)
+  File "/home/azureuser/.cache/pypoetry/virtualenvs/tentamen-IVqS6D8t-py3.9/lib/python3.9/site-packages/ray/tune/trainable/function_trainable.py", line 335, in entrypoint
+    return self._trainable_func(
+  File "/home/azureuser/.cache/pypoetry/virtualenvs/tentamen-IVqS6D8t-py3.9/lib/python3.9/site-packages/ray/tune/trainable/function_trainable.py", line 652, in _trainable_func
+    output = fn()
+  File "/home/azureuser/Tentamen/ML22-tentamen/dev/scripts/02_tune.py", line 46, in train
+    model = grumodel(config)  # type: ignore
+NameError: name 'grumodel' is not defined
