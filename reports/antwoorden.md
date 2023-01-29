@@ -137,6 +137,7 @@ Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een rel
 
 | Score |0.9389|0.9439|0.9632|0.9582|0.9605|0.9366|
 |----|---|---|---|---|---|---|
+|Data|20230129-1244|20230129-1250|20230129-1300|20230129-1311|20230129-1334|20230129-1344|
 |input|13|13|13|13|13|13|
 |output|20|20|20|20|20|20|
 |hidden|64|128|256|256|128|64|
@@ -145,7 +146,23 @@ Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een rel
 |optimizer|Adam|Adam|Adam|Adam|Adam|Adam|
 |learning_rate|0.001|0.001|0.001|0.001|0.001|0.001|
 
+<figure>
+  <p align = "center">
+    <img src="img/Loss train.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 2. Lost train</b>
+    </figcaption>
+  </p>
+</figure>
 
+<figure>
+  <p align = "center">
+    <img src="img/Loss test.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 3. Lost test</b>
+    </figcaption>
+  </p>
+</figure>
 
 ## Vraag 2
 Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.py`.
