@@ -1,0 +1,9 @@
+{
+  "batchsize": 79,
+  "dropout": 0.12475818529733539,
+  "hidden": 54,
+  "input": 13,
+  "num_layers": 3,
+  "output": 20,
+  "tunedir": "/home/azureuser/Tentamen/ML22-tentamen/models/tune"
+}
