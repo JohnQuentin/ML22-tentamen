@@ -1,3 +1,11 @@
+# Opdracht Machine Learning 
+## Master of Informatics - Applied Data Science
+## HU University of Applied Sciences Utrecht
+#### D.d.
+Student:
+St.Nr: 
+
+
 ```
 ├── README.md       <- this file
 ├── data            <- store your data here

@@ -1,0 +1,2 @@
+iterations,train_loss,test_loss,Accuracy,time_this_iter_s,done,timesteps_total,episodes_total,training_iteration,trial_id,experiment_id,date,timestamp,time_total_s,pid,hostname,node_ip,time_since_restore,timesteps_since_restore,iterations_since_restore,warmup_time
+0,2.8837057749430337,2.9938534568337833,0.058823529411764705,62.06566071510315,False,,,1,b7909ae4,31778489fcac4612b43b186cdf937d43,2023-01-30_14-15-43,1675088143,62.06566071510315,26175,ML-RefVm-847530,10.0.0.15,62.06566071510315,0,1,0.0033111572265625

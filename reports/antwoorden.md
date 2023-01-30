@@ -179,19 +179,84 @@ Implementeer de hypertuning voor jouw architectuur:
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
 
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Vanuit vraag 1 is naar voren gekomen dat een hidden van 128, Dropout van 0.2 en een Num_layers van 4 tot nu toe het beste resultaat heeft gegeven. vanuit een search online is naar voren gekomen dat het ook verstandig is om de batchsize mee te nemen in het hypertunen. Daarom deze ook meegenomen in de SearchSpace. 
+
+Voor de eerste run de SearchSpace ingesteld met enige ruimte rond de parameters die in vraag 1 het beste resultaat hebben opgeleverd. 
+
+```
+class grumodelSearchSpace(BaseSearchSpace):
+    hidden: Union[int, SAMPLE_INT] = tune.randint(64, 256)
+    dropout: Union[float, SAMPLE_FLOAT] = tune.uniform(0.1, 0.3)
+    num_layers: Union[int, SAMPLE_INT] = tune.randint(2, 6)
+    batchsize: Union[int, SAMPLE_INT] = tune.randint(16, 256)
+```
+
 
 
 ### 2b
 - Analyseer de resultaten van jouw hypertuning; visualiseer de parameters van jouw hypertuning en sla het resultaat van die visualisatie op in `reports/img`. Suggesties: `parallel_coordinates` kan handig zijn, maar een goed gekozen histogram of scatterplot met goede kleuren is in sommige situaties duidelijker! Denk aan x en y labels, een titel en units voor de assen.
-  * Analyseren
-  * Visualiseren 
-  * less = more!
-
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
-  * Argumenteren
-
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
- * 
+
+#### <span style="background-color: #197d2b">Antwoord:</span>
+Vanuit vraag 1 neem ik het GRU model mee omdat ik daar al een nauwkeurigheid heb weten te behalen van zo’n 96%. Met de volgende parameters (uitgelegd in vraag 2a) ben ik gestart met het hypertunen:
+Run 1
+|Subject|Between| 
+|---|---|
+|Hidden|64, 256|
+|Num_layers|2, 6|
+|Dropout|0.1, 0.3|
+|Batchsize|16, 256|
+|Epochs|20|
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN1GRA.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 4. Grafiek run 1</b>
+    </figcaption>
+  </p>
+</figure>
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN1TAB.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 5. Best score run 1</b>
+    </figcaption>
+  </p>
+</figure>
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN1SCATTER.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 5. Best score run 1</b>
+    </figcaption>
+  </p>
+</figure>
+
+
+Hoge batch size
+Lage dropout
+Hidden rond de 170
+Num_layers 5
+
+
+Run 2
+|Subject|Between| 
+|---|---|
+|Hidden|128, 256|
+|Num_layers|4, 8|
+|Dropout|0.1, 0.3|
+|Batchsize|256, 512|
+|Epochs|20|
+
+
+
+
+
 
 ### 2c
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
