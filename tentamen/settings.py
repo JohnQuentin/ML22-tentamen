@@ -64,6 +64,6 @@ class gru_modelConfig(BaseSearchSpace):
 
 class grumodelSearchSpace(BaseSearchSpace):
     hidden: Union[int, SAMPLE_INT] = tune.randint(128, 256)
-    num_layers: Union[int, SAMPLE_INT] = tune.randint(4, 8)
+    num_layers: Union[int, SAMPLE_INT] = tune.randint(1, 3)
     dropout: Union[float, SAMPLE_FLOAT] = tune.uniform(0.1, 0.3)
-    batchsize: Union[int, SAMPLE_INT] = tune.randint(256, 512)
+    batchsize: Union[int, SAMPLE_INT] = tune.randint(16, 32)

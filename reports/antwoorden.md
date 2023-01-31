@@ -232,7 +232,7 @@ Run 1
   <p align = "center">
     <img src="img/RUN1SCATTER.png" style="width:100%">
     <figcaption align="center">
-      <b> Fig 5. Best score run 1</b>
+      <b> Fig 6. Best score run 1</b>
     </figcaption>
   </p>
 </figure>
@@ -251,6 +251,16 @@ Run 2
 |Num_layers|4, 8|
 |Dropout|0.1, 0.3|
 |Batchsize|256, 512|
+|Epochs|20|
+
+Run 3
+
+|Subject|Between| 
+|---|---|
+|Hidden|128, 256|
+|Num_layers|1, 3|
+|Dropout|0.1, 0.3|
+|Batchsize|16, 32|
 |Epochs|20|
 
 
