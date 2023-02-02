@@ -201,7 +201,7 @@ Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en ge
 
 #### <span style="background-color: #197d2b">Antwoord:</span>
 Vanuit vraag 1 neem ik het GRU model mee omdat ik daar al een nauwkeurigheid heb weten te behalen van zo’n 96%. Met de volgende parameters (uitgelegd in vraag 2a) ben ik gestart met het hypertunen:
-Run 1
+### Run 1
 |Subject|Between| 
 |---|---|
 |Hidden|64, 256|
@@ -219,6 +219,8 @@ Run 1
   </p>
 </figure>
 
+In bovenstaande parallel coordinates plot (fig. 4) is te zien dat de hoogst behaald resultaat de volgende instellingen heeft: batchsize: 252, dropout: 0.16136, hidden: 171 en num_layers: 5. In fig. 5 wordt dit in een tabel weergegeven. 
+
 <figure>
   <p align = "center">
     <img src="img/RUN1TAB.png" style="width:100%">
@@ -228,20 +230,18 @@ Run 1
   </p>
 </figure>
 
+In onderstaande scatter plot (Fig. 6) worden de zelfde resultaten weergegeven als in de fig. 4. Vanuit fig. 6 (batchsize) is op te maken dat een hoge batchsize niet perse resulteert in een hogere nauwkeurigheid. Batchsize van 220+ hebben ook resultaten behaald van minder dan 0.6 nauwkeurigheid. Dit zelfde fenomeen is ook terug te zien in fig. 6 (dropout). Hier is het ook zo dat zowel een hoge als lage dropout voor zowel een hoge als lage nauwkeurigheid heeft gezorgd. Kijkend naar fig. 6 (hidden) is te zien dat de nauwkeurigheid het hoogst is wanneer de waarde ligt tussen de 160 en 180. In vergelijking met de voorgaande (batchsize, dropout) is hier meer groepsvorming te zien. In fig 6. (num_layers) is ook groepsvorming te zien bij een hoge nauwkeurigheid tussen de 4.0 en 5.0. Tegelijk is ook te zien dat er ook een lage nauwkeurigheid behaald is met deze aantal lagen. 
+
 <figure>
   <p align = "center">
     <img src="img/RUN1SCATTER.png" style="width:100%">
     <figcaption align="center">
-      <b> Fig 6. Best score run 1</b>
+      <b> Fig 6. Scatterplot run 1</b>
     </figcaption>
   </p>
 </figure>
 
-
-Hoge batch size
-Lage dropout
-Hidden rond de 170
-Num_layers 5
+Kijkend naar de spreiding per onderdeel is het lastig om te bepalen of dit nu het beste resultaat heeft opgeleverd. De nauwkeurigheid is immers maar iets hoger dan tijdens de handmatige fase (vraag 1d). Om te zien of er toch een beter resultaat te behalve valt heb ik nog een run gedraaid (run 2). In deze run besloten om de hidden meer te centreren rond de waarde waar het hoogte resultaat mee is behaald zijnde 171. Daarom de range ingesteld op 128, 256. Omdat de Num_layers hoogste resultaat heeft behaald met 5 deze verhoogt naar range 4, 8. Omdat de dropout een hoge nauwkeurigheid heeft behaald met zowel een lage als een hoge dropout heb ik deze niet veranderd. Omdat een lager batchsize alleen lage nauwkeurigheid heeft behaald als resultaat deze verhoogt om te zien of dit een positief effect zal hebben (range naar 256, 512). 
 
 
 Run 2
@@ -253,7 +253,41 @@ Run 2
 |Batchsize|256, 512|
 |Epochs|20|
 
+<figure>
+  <p align = "center">
+    <img src="img/RUN2GRA.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 7. Grafiek run 2</b>
+    </figcaption>
+  </p>
+</figure>
+
+In fig. 7 is te zien dat een hogere batch geen (positief) effect heeft gehad op de nauwkeurigheid van het model. Dit is ook terug te zien in het tabel, zie fig. 8. Hierin is terug te zien dat de hoogte nauwkeurigheid zijnde 0.94347 lager uitvalt dan in de eerste run. 
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN2TAB.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 8. Best score run 2</b>
+    </figcaption>
+  </p>
+</figure>
+
+In fig. 9 wordt run 2 weergegeven in gesepareerde scatter plots. Uit fig. 9 (batchsize) is op te maken dat een batchsize van rond de 450 resulteert in de hoogste nauwkeurigheid voor run 2. Voor de dorpout is het resultaat wat meer verspreid zo ook voor de num_layers al valt wel op dat een hoge num_layers (7) heeft meegedragen aan een hoge nauwkeurigheid. In fig. 9 (hidden) is te zien dat er enige groepsvorming is rond 160 voor een hogere nauwkeurigheid. 
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN2SCATTER.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 9. Scatterplot run 2</b>
+    </figcaption>
+  </p>
+</figure>
+
+
 Run 3
+
+Om er zeker van te zijn dat ik niet de verkeerde kant op aan het zoeken ben heb ik nog een derde run uitgevoerd. In deze run heb ik Num_layers en Batchsize juist verlaagt, zie tabel x. 
 
 |Subject|Between| 
 |---|---|
@@ -263,9 +297,50 @@ Run 3
 |Batchsize|16, 32|
 |Epochs|20|
 
+In fig. 10 is terug te zien dat de nauwkeurigheid score wederom boven de 0.9 is uitgekomen. In fig. 11 is af te lezen dat het nauwkeurigheid score is uitgekomen op 0.94072. 
 
+<figure>
+  <p align = "center">
+    <img src="img/RUN3GRA.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 10. Grafiek run 3</b>
+    </figcaption>
+  </p>
+</figure>
 
+<figure>
+  <p align = "center">
+    <img src="img/RUN3TAB.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 11. Best score run 3</b>
+    </figcaption>
+  </p>
+</figure>
 
+In fig. 12 hieronder worden de afzonderlijke scores gesepareerde weergegeven in een scatter plot. Vanuit fig. 12 is op te maken dat ook een lage batchsize kan resulteren in een relatief hoge nauwkeurigheid. Daarnaast is te zien dat de dorpout en de hidden beiden relatief dezelfde plaatsing innemen als in run 2. De num_layers geeft hier ook weer de voorkeur aan een hogere waarde. 
+
+<figure>
+  <p align = "center">
+    <img src="img/RUN3SCATTER.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 12. Scatterplot run 3</b>
+    </figcaption>
+  </p>
+</figure>
+
+Om een volledig overzicht te creëren wordt in fig. 13 alle parallel coordinates plot onder elkaar geplaatst. 
+
+<figure>
+  <p align = "center">
+    <img src="img/ALL3.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 13. Parallel coordinates plots RUN 1, 2 en 3</b>
+    </figcaption>
+  </p>
+</figure>
+
+In fig. 13 is te zien dat de rode lijn in alle drie de plots enigszins op dezelfde wijze loopt. Dit geeft het idee dat er een relatie is tussen deze parameters. De batchsize bepaald de aantal samples die in één passage wordt gebruikt. Een grotere batchsize resulteert vaak in een stabielere gradient. Dit vraagt wel meer geheugenruimte. Een kleine batchsize vraagt minder geheugenruimte maar kan resulteren in een ruisachtiger gradient. De dropout is een regularisatietechniek die overfitting helpt voorkomen. Deze techniek werkt door neuronen in het netwerk (tijdens de training) willekeurig te laten vallen. De enige relatie tussen deze twee parameters is dat ze beide het generalisatievermogen van het model beïnvloeden. Hidden kan lange termijn afhankelijkheden tussen de inputs vastleggen (wat nuttig is bij sequentiële gegevens). De dropout heeft invloed op de hidden van wege de regulerende functie die de dropout heeft. Tot slot kunnen we nog kijken naar de relatie tussen hidden en num_layers. Hierbij zien we dat de hidden de capaciteit van elke GRU-laag bepaald en de num_layers de diepte van het model bepaalt. Uit de literatuur is naar voren gekomen dat een model met veel hidden en veel num_layers niet per definitie beter is dan een model met weinig hidden en weinig num_layers. 
+Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het resultaat van RUN 1 te gebruiken. Dit wilt niet zeggen dat ik denk dat ik geen hoger resultaat kan behalen. Na onderzoek online denk ik dat ik een hoger resultaat kan behalen door een attention layer toe te voegen aan mijn GRU-model. Een attention layer stelt het GRU-model in staat zijn aandacht te richten op verschillende delen van de input, i.v.m. de gehele input te gebruiken. De attention layer kent gewichten toe aan elke tijdstap van de input om aan te geven hoe belangrijk die is voor de voorspelling van de output. De attention layer helpt het model om alleen op de meest relevante delen van de input te focussen. 
 
 
 ### 2c
@@ -279,3 +354,11 @@ Run 3
 - Zorg voor duidelijke illustraties; voeg labels in voor x en y as, zorg voor eenheden op de assen, een titel, en als dat niet gaat (bv omdat het uit tensorboard komt) zorg dan voor een duidelijke caption van de afbeelding waar dat wel wordt uitgelegd.
 - Laat zien dat je je vragen kort en bondig kunt beantwoorden. De antwoordstrategie "ik schiet met hagel en hoop dat het goede antwoord ertussen zit" levert minder punten op dan een kort antwoord waar je de essentie weet te vangen. 
 - nodig mij uit (github handle: raoulg) voor je repository. 
+
+---
+
+<figure>
+  <p align = "center">
+    <img src="img/Banner.png" style="width:100%">
+  </p>
+</figure>
