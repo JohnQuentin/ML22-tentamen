@@ -1,6 +1,10 @@
 
 .DEFAULT: run
 
+
+run_model_design:	
+	export PYTHONPATH="$$HOME/code/ML22-tentamen" ;poetry run python dev/scripts/2c_model_design.py
+
 run_gru:	
 	export PYTHONPATH="$$HOME/code/ML22-tentamen" ;poetry run python dev/scripts/01_gru_model.py
 
