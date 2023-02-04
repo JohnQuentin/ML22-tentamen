@@ -346,6 +346,34 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
 ### 2c
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
 
+<figure>
+  <p align = "center">
+    <img src="img/model_design.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 14. Tekst</b>
+    </figcaption>
+  </p>
+</figure>
+
+<figure>
+  <p align = "center">
+    <img src="img/model_design_loss_test.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 15. Tekst</b>
+    </figcaption>
+  </p>
+</figure>
+
+<figure>
+  <p align = "center">
+    <img src="img/model_design_loss_train.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 16. Tekst</b>
+    </figcaption>
+  </p>
+</figure>
+
+
 ## Vraag 3
 ### 3a
 - fork deze repository.

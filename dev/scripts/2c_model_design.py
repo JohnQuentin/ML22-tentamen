@@ -31,10 +31,10 @@ if __name__ == "__main__":
         model = grumodel(config.dict())  # type: ignore
 
         trainedmodel = trainloop(
-            epochs=150,
+            epochs=50,
             model=model,  # type: ignore
             optimizer=torch.optim.Adam,
-            learning_rate=1e-3,
+            learning_rate=1e-4,
             loss_fn=torch.nn.CrossEntropyLoss(),
             metrics=[Accuracy()],
             train_dataloader=trainstreamer.stream(),
