@@ -14,8 +14,8 @@ De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings
 
 - Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1a (deel 1):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1a (deel 1)
 </div>
 Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
 Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
@@ -23,8 +23,8 @@ Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals
 <br>
 
 - Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1a (deel 2):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1a (deel 2)
 </div>
 
 De vraagstelling vanuit de collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (n=10) uitgesproken in het Arabic door mannelijke en vrouwelijke (cat. n=2) sprekers. Dit betekent dat er in totaal 20 classes zijn die geïdentificeerd dienen te worden. Kijkend naar het geschreven model zien we het volgende:
@@ -54,8 +54,8 @@ nn.Linear(config["32"], config["20"]),
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
 - Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1b (deel 1):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1b (deel 1)
 </div>
 
 
@@ -71,8 +71,8 @@ Het deel x.mean(dim=1) pakt het gemiddelde van alles regels in een block. Uitkom
 
 - Hoe had hij dit ook kunnen oplossen?
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1b (deel 2):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1b (deel 2)
 </div>
 
 Andere opties zijn:
@@ -81,8 +81,8 @@ nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 
 - Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1b (deel 3):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1b (deel 3)
 </div>
 
 
@@ -99,8 +99,8 @@ Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitlegg
 
 - Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1c (deel 1):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1c (deel 1)
 </div>
 
 
@@ -134,8 +134,8 @@ Omdat we hier te maken hebben met sequentie data is het van belang om de context
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1c (deel 2 en 3 (deels ook al beantwoord in deel 1)):
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1c (deel 2 en 3 (deels ook al beantwoord in deel 1))
 </div>
 
 Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder). Achter elk antwoord direct de overweging beschreven. 
@@ -160,8 +160,8 @@ Implementeer jouw veelbelovende model:
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 1d:
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 1d
 </div>
 
 
@@ -213,8 +213,8 @@ Implementeer de hypertuning voor jouw architectuur:
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 2a:
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 2a
 </div>
 
 
@@ -237,8 +237,8 @@ class grumodelSearchSpace(BaseSearchSpace):
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 2b:
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 2b
 </div>
 
 
@@ -388,8 +388,8 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
 ### 2c
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
 
-<div style="border-radius: 10px; background: beige; padding: 3px;">
- &#9432; Antwoord 2c:
+<div style="border-radius: 10px; background: beige; padding: 10px;">
+ &#9432; Antwoord 2c
 </div>
 
 Schrijven:
