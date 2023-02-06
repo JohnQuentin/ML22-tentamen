@@ -13,13 +13,20 @@ Het model in deze file heeft in de eerste hidden layer 100 units, in de tweede l
 De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings voor dropout zou zijn.
 
 - Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
-#### <span style="background-color: #197d2b">Antwoord:</span>
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1a (deel 1):
+</div>
 Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
 Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
 
+<br>
 
 - Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
-#### <span style="background-color: #197d2b">Antwoord:</span>
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1a (deel 2):
+</div>
+
 De vraagstelling vanuit de collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (n=10) uitgesproken in het Arabic door mannelijke en vrouwelijke (cat. n=2) sprekers. Dit betekent dat er in totaal 20 classes zijn die geïdentificeerd dienen te worden. Kijkend naar het geschreven model zien we het volgende:
 ```
 (Getalen overgenomen om het leesbaar te maken)
@@ -46,7 +53,13 @@ nn.Linear(config["32"], config["20"]),
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
 - Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
-#### <span style="background-color: #197d2b">Antwoord:</span>
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1b (deel 1):
+</div>
+
+
+
 De complete functie is
 ```
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -57,13 +70,22 @@ De complete functie is
 Het deel x.mean(dim=1) pakt het gemiddelde van alles regels in een block. Uitkomst is één regel met 13 groepen van getallen. (e.g. -2.5929 -2.889 0.29554 -0.067409 0.28635 0.20898 0.41408 0.38878 0.37271 0.16329 0.0050341 0.12431 0.44326). Door dit te doen is het probleem opgelost dat de blocks verschillende lengtes hebben. Nadeel hiervan is wel dat er veel informatie verloren gaat. Deze stap is nodig omdat het gekozen model niet overweg kan met verschillende block lengtes. 
 
 - Hoe had hij dit ook kunnen oplossen?
-#### <span style="background-color: #197d2b">Antwoord:</span>
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1b (deel 2):
+</div>
+
 Andere opties zijn:
 nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 
 
 - Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
-#### <span style="background-color: #197d2b">Antwoord:</span>
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1b (deel 3):
+</div>
+
+
 * nn.Flatten(): hervormd de data naar een 1-dim array
   * Nadeel: Kost veel geheugen en processing kracht. Daarnaast zorgt deze methoden er ook voor dat je (ruimtelijke) informatie verliest.
 * nn.AvgPool2d(): pakt het gemiddelde van de gekozen window.
@@ -76,7 +98,12 @@ nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitleggen wat een betere architectuur zou zijn.
 
 - Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
-#### <span style="background-color: #197d2b">Antwoord:</span>
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1c (deel 1):
+</div>
+
+
 Zoals eerder beschreven gaat het om een classificatie vraag. De dataset bestaat uit 8800 (10 cijfers x 10 herhalingen x 88 sprekers) tijdreeksen van 13 MFCCs. Na verkenning komende de volgende architecturen als beste naar boven gezien de vraag en gegeven dataset:
 
 
@@ -107,7 +134,10 @@ Omdat we hier te maken hebben met sequentie data is het van belang om de context
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
 
-#### <span style="background-color: #197d2b">Antwoord:</span>
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1c (deel 2 en 3 (deels ook al beantwoord in deel 1)):
+</div>
+
 Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder). Achter elk antwoord direct de overweging beschreven. 
 
 |Name|Option|Reasoning|
@@ -130,7 +160,11 @@ Implementeer jouw veelbelovende model:
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
 
-#### <span style="background-color: #197d2b">Antwoord:</span>
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 1d:
+</div>
+
+
 Omdat de input, output en de dropout al redelijk vaststaan heb ik hier alleen geëxperimenteerd met de hidden size en de num_layers. De optimizer is de beste keuze voor dit vraagstuk en expirimenteren met de learning_rate zou te veel gaan lijken op hypertuning. 
 Het meest opvallende is dat dit model al vrij snel boven de 0.9300 komt. Een relatief groot effect heeft het aanpassen van de hidden size. De aanpassing van de num_layers heeft een minder groot effect dan verwacht. 
 
@@ -179,7 +213,11 @@ Implementeer de hypertuning voor jouw architectuur:
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
 
-#### <span style="background-color: #197d2b">Antwoord:</span>
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 2a:
+</div>
+
+
 Vanuit vraag 1 is naar voren gekomen dat een hidden van 128, Dropout van 0.2 en een Num_layers van 4 tot nu toe het beste resultaat heeft gegeven. vanuit een search online is naar voren gekomen dat het ook verstandig is om de batchsize mee te nemen in het hypertunen. Daarom deze ook meegenomen in de SearchSpace. 
 
 Voor de eerste run de SearchSpace ingesteld met enige ruimte rond de parameters die in vraag 1 het beste resultaat hebben opgeleverd. 
@@ -199,7 +237,11 @@ class grumodelSearchSpace(BaseSearchSpace):
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
 
-#### <span style="background-color: #197d2b">Antwoord:</span>
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 2b:
+</div>
+
+
 Vanuit vraag 1 neem ik het GRU model mee omdat ik daar al een nauwkeurigheid heb weten te behalen van zo’n 96%. Met de volgende parameters (uitgelegd in vraag 2a) ben ik gestart met het hypertunen:
 ### Run 1
 |Subject|Between| 
@@ -345,6 +387,15 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
 
 ### 2c
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
+
+<div style="border-radius: 10px; background: beige; padding: 3px;">
+ &#9432; Antwoord 2c:
+</div>
+
+Schrijven:
+- Learning rate naar aanleiding van onderstaande aangepast en ep: 50 getraind. 0.82 gehaald. 
+- Voor de zekerheid nog een keer met ep: 150 uitvoeren. 
+- Reflc waarom het resultaat toch tegen valt. 
 
 <figure>
   <p align = "center">
