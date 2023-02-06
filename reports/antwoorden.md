@@ -23,16 +23,20 @@ Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk me
 <br>
 
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
- &#9432; Antwoord 1a (deel 1)
+ &#9997; Antwoord 1a (deel 1)
 </div>
 Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
 Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
 
-\
-&nbsp;
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1a (deel 2)
+<br>
+Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
+</div>
 
-- Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
-<div style="border-radius: 10px; background: beige; padding: 10px;">
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#9997; Antwoord 1a (deel 2)
 </div>
 
@@ -60,11 +64,18 @@ nn.Linear(config["32"], config["20"]),
 
 
 ## 1b
-Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is. 
-- Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
+Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is.
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1b (deel 1)
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1b (deel 1)
+<br>
+Wat is het effect hiervan? Welk probleem probeert hij hier op te lossen? (maw, wat gaat er fout als hij dit niet doet?)
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1b (deel 1)
 </div>
 
 
@@ -78,10 +89,18 @@ De complete functie is
 ```
 Het deel x.mean(dim=1) pakt het gemiddelde van alles regels in een block. Uitkomst is één regel met 13 groepen van getallen. (e.g. -2.5929 -2.889 0.29554 -0.067409 0.28635 0.20898 0.41408 0.38878 0.37271 0.16329 0.0050341 0.12431 0.44326). Door dit te doen is het probleem opgelost dat de blocks verschillende lengtes hebben. Nadeel hiervan is wel dat er veel informatie verloren gaat. Deze stap is nodig omdat het gekozen model niet overweg kan met verschillende block lengtes. 
 
-- Hoe had hij dit ook kunnen oplossen?
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1b (deel 2)
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1b (deel 2)
+<br>
+Hoe had hij dit ook kunnen oplossen?
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1b (deel 2)
 </div>
 
 Andere opties zijn:
@@ -90,8 +109,16 @@ nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 
 - Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1b (deel 3)
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1b (deel 3)
+<br>
+Hoe had hij dit ook kunnen oplossen?
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1b (deel 3)
 </div>
 
 
@@ -106,10 +133,18 @@ nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 ### 1c
 Omdat jij de cursus Machine Learning hebt gevolgd kun jij hem uitstekend uitleggen wat een betere architectuur zou zijn.
 
-- Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1c (deel 1)
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1c (deel 1)
+<br>
+Beschrijf de architecturen die je kunt overwegen voor een probleem als dit. Het is voldoende als je beschrijft welke layers in welke combinaties je zou kunnen gebruiken.
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1c (deel 1)
 </div>
 
 
@@ -140,11 +175,17 @@ Zoals eerder beschreven gaat het om een classificatie vraag. De dataset bestaat 
 
 Omdat we hier te maken hebben met sequentie data is het van belang om de context te bewaren uit het verleden (RNN grootste probleem is vanishing gradient problem). LSTM en GRU kunnen dat beide. Gezien de data en het vraagstuk valt mijn keuze op het maken van een GRU-model. Deze is makkelijker te trainen, minder complex maar biedt vrijwel dezelfde mogelijkheden. 
 
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1c (deel 2 en 3)
+<br>
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
+</div>
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1c (deel 2 en 3 (deels ook al beantwoord in deel 1))
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1c (deel 2 en 3 (deels ook al beantwoord in deel 1))
 </div>
 
 Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder). Achter elk antwoord direct de overweging beschreven. 
@@ -162,15 +203,22 @@ Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder)
 
 
 ### 1d
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1d
+<br>
 Implementeer jouw veelbelovende model: 
 - Maak in `model.py` een nieuw nn.Module met jouw architectuur 
 - Maak in `settings.py` een nieuwe config voor jouw model
 - Train het model met enkele educated guesses van parameters. 
 - Rapporteer je bevindingen. Ga hier niet te uitgebreid hypertunen (dat is vraag 2), maar rapporteer (met een afbeelding in `antwoorden/img` die je linkt naar jouw .md antwoord) voor bijvoorbeeld drie verschillende parametersets hoe de train/test loss curve verloopt.
 - reflecteer op deze eerste verkenning van je model. Wat valt op, wat vind je interessant, wat had je niet verwacht, welk inzicht neem je mee naar de hypertuning.
+</div>
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1d
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 1d
 </div>
 
 
@@ -215,15 +263,23 @@ In deze grafiek hieronder zien we hetzelfde als in de grafiek hierboven. De eers
 Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.py`.
 
 ### 2a
+
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 2a
+<br>
 Implementeer de hypertuning voor jouw architectuur:
 - zorg dat je model geschikt is voor hypertuning
 - je mag je model nog wat aanpassen, als vraag 1d daar aanleiding toe geeft. Als je in 1d een ander model gebruikt dan hier, geef je model dan een andere naam zodat ik ze naast elkaar kan zien.
 - voeg jouw model in op de juiste plek in de `tune.py` file.
 - maak een zoekruimte aan met behulp van pydantic (naar het voorbeeld van LinearSearchSpace), maar pas het aan voor jouw model.
 - Licht je keuzes toe: wat hypertune je, en wat niet? Waarom? En in welke ranges zoek je, en waarom? Zie ook de [docs van ray over search space](https://docs.ray.io/en/latest/tune/api_docs/search_space.html#tune-sample-docs) en voor [rondom search algoritmes](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html#bohb-tune-search-bohb-tunebohb) voor meer opties en voorbeelden.
+</div>
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 2a
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 2a
 </div>
 
 
@@ -242,12 +298,19 @@ class grumodelSearchSpace(BaseSearchSpace):
 
 
 ### 2b
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 2b
+<br>
 - Analyseer de resultaten van jouw hypertuning; visualiseer de parameters van jouw hypertuning en sla het resultaat van die visualisatie op in `reports/img`. Suggesties: `parallel_coordinates` kan handig zijn, maar een goed gekozen histogram of scatterplot met goede kleuren is in sommige situaties duidelijker! Denk aan x en y labels, een titel en units voor de assen.
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
+</div>
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 2b
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 2b
 </div>
 
 
@@ -395,10 +458,17 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
 
 
 ### 2c
-- Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 2c
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 2c
+<br>
+- Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 2c
 </div>
 
 Schrijven:
@@ -435,13 +505,23 @@ Schrijven:
 
 
 ## Vraag 3
-### 3a
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 3a
+<br>
 - fork deze repository.
 - Zorg voor nette code. Als je nu `make format && make lint` runt, zie je dat alles ok is. Hoewel het in sommige gevallen prima is om een ignore toe te voegen, is de bedoeling dat je zorgt dat je code zoveel als mogelijk de richtlijnen volgt van de linters.
 - We werken sinds 22 november met git, en ik heb een `git crash coruse.pdf` gedeeld in les 2. Laat zien dat je in git kunt werken, door een git repo aan te maken en jouw code daarheen te pushen. Volg de vuistregel dat je 1) vaak (ruwweg elke dertig minuten aan code) commits doet 2) kleine, logische chunks van code/files samenvoegt in een commit 3) geef duidelijke beschrijvende namen voor je commit messages
 - Zorg voor duidelijke illustraties; voeg labels in voor x en y as, zorg voor eenheden op de assen, een titel, en als dat niet gaat (bv omdat het uit tensorboard komt) zorg dan voor een duidelijke caption van de afbeelding waar dat wel wordt uitgelegd.
 - Laat zien dat je je vragen kort en bondig kunt beantwoorden. De antwoordstrategie "ik schiet met hagel en hoop dat het goede antwoord ertussen zit" levert minder punten op dan een kort antwoord waar je de essentie weet te vangen. 
 - nodig mij uit (github handle: raoulg) voor je repository. 
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#9997; Antwoord 3a
+</div>
 
 ---
 
