@@ -12,9 +12,17 @@ In `dev/scripts` vind je de file `01_model_design.py`.
 Het model in deze file heeft in de eerste hidden layer 100 units, in de tweede layer 10 units, dit heeft jouw collega ergens op stack overflow gevonden en hij had gelezen dat dit een goed model zou zijn.
 De dropout staat op 0.5, hij heeft in een blog gelezen dat dit de beste settings voor dropout zou zijn.
 
-- Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
 
-<div style="border-radius: 10px; background: beige; padding: 10px;">
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
+ &#10002; Vraag 1a (deel 1)
+<br>
+Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk met drie Linear layers)? Wat zijn sterke en zwakke kanten van een model als dit in het algemeen? En voor dit specifieke probleem?
+</div>
+
+<br>
+
+<div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#9432; Antwoord 1a (deel 1)
 </div>
 Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
@@ -25,7 +33,7 @@ Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals
 
 - Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aantal units ten opzichte van de data? En van de dropout?
 <div style="border-radius: 10px; background: beige; padding: 10px;">
- &#9432; Antwoord 1a (deel 2)
+ &#9997; Antwoord 1a (deel 2)
 </div>
 
 De vraagstelling vanuit de collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (n=10) uitgesproken in het Arabic door mannelijke en vrouwelijke (cat. n=2) sprekers. Dit betekent dat er in totaal 20 classes zijn die geïdentificeerd dienen te worden. Kijkend naar het geschreven model zien we het volgende:
