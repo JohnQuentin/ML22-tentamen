@@ -28,6 +28,8 @@ Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk me
 Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
 Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
 
+<br>
+
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 1a (deel 2)
 <br>
@@ -178,6 +180,7 @@ Omdat we hier te maken hebben met sequentie data is het van belang om de context
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 1c (deel 2 en 3)
 <br>
+
 - Geef vervolgens een indicatie en motivatie voor het aantal units/filters/kernelsize etc voor elke laag die je gebruikt, en hoe je omgaat met overgangen (bv van 3 naar 2 dimensies). Een indicatie is bijvoorbeeld een educated guess voor een aantal units, plus een boven en ondergrens voor het aantal units. Met een motivatie laat je zien dat jouw keuze niet een random selectie is, maar dat je 1) andere problemen hebt gezien en dit probleem daartegen kunt afzetten en 2) een besef hebt van de consquenties van het kiezen van een range.
 - Geef aan wat jij verwacht dat de meest veelbelovende architectuur is, en waarom (opnieuw, laat zien dat je niet random getallen noemt, of keuzes maakt, maar dat jij je keuze baseert op ervaring die je hebt opgedaan met andere problemen).
 </div>
@@ -207,6 +210,7 @@ Voor het maken van een GRU-model zijn de volgende gegevens nodig (zie hieronder)
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 1d
 <br>
+
 Implementeer jouw veelbelovende model: 
 - Maak in `model.py` een nieuw nn.Module met jouw architectuur 
 - Maak in `settings.py` een nieuwe config voor jouw model
@@ -268,6 +272,7 @@ Een andere collega heeft alvast een hypertuning opgezet in `dev/scripts/02_tune.
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 2a
 <br>
+
 Implementeer de hypertuning voor jouw architectuur:
 - zorg dat je model geschikt is voor hypertuning
 - je mag je model nog wat aanpassen, als vraag 1d daar aanleiding toe geeft. Als je in 1d een ander model gebruikt dan hier, geef je model dan een andere naam zodat ik ze naast elkaar kan zien.
@@ -302,6 +307,7 @@ class grumodelSearchSpace(BaseSearchSpace):
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 2b
 <br>
+
 - Analyseer de resultaten van jouw hypertuning; visualiseer de parameters van jouw hypertuning en sla het resultaat van die visualisatie op in `reports/img`. Suggesties: `parallel_coordinates` kan handig zijn, maar een goed gekozen histogram of scatterplot met goede kleuren is in sommige situaties duidelijker! Denk aan x en y labels, een titel en units voor de assen.
 - reflecteer op de hypertuning. Wat werkt wel, wat werkt niet, wat vind je verrassend, wat zijn trade-offs die je ziet in de hypertuning, wat zijn afwegingen bij het kiezen van een uiteindelijke hyperparametersetting.
 Importeer de afbeeldingen in jouw antwoorden, reflecteer op je experiment, en geef een interpretatie en toelichting op wat je ziet.
@@ -462,6 +468,7 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 2c
 <br>
+
 - Zorg dat jouw prijswinnende settings in een config komen te staan in `settings.py`, en train daarmee een model met een optimaal aantal epochs, daarvoor kun je `01_model_design.py` kopieren en hernoemen naar `2c_model_design.py`.
 </div>
 
@@ -480,7 +487,7 @@ Schrijven:
   <p align = "center">
     <img src="img/model_design.png" style="width:100%">
     <figcaption align="center">
-      <b> Fig 14. Tekst</b>
+      <b> Fig 14. Accuracy extra run</b>
     </figcaption>
   </p>
 </figure>
@@ -489,7 +496,7 @@ Schrijven:
   <p align = "center">
     <img src="img/model_design_loss_test.png" style="width:100%">
     <figcaption align="center">
-      <b> Fig 15. Tekst</b>
+      <b> Fig 15. Loss/test extra run</b>
     </figcaption>
   </p>
 </figure>
@@ -498,7 +505,7 @@ Schrijven:
   <p align = "center">
     <img src="img/model_design_loss_train.png" style="width:100%">
     <figcaption align="center">
-      <b> Fig 16. Tekst</b>
+      <b> Fig 16. Loss/train extra run</b>
     </figcaption>
   </p>
 </figure>
@@ -509,6 +516,7 @@ Schrijven:
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 3a
 <br>
+
 - fork deze repository.
 - Zorg voor nette code. Als je nu `make format && make lint` runt, zie je dat alles ok is. Hoewel het in sommige gevallen prima is om een ignore toe te voegen, is de bedoeling dat je zorgt dat je code zoveel als mogelijk de richtlijnen volgt van de linters.
 - We werken sinds 22 november met git, en ik heb een `git crash coruse.pdf` gedeeld in les 2. Laat zien dat je in git kunt werken, door een git repo aan te maken en jouw code daarheen te pushen. Volg de vuistregel dat je 1) vaak (ruwweg elke dertig minuten aan code) commits doet 2) kleine, logische chunks van code/files samenvoegt in een commit 3) geef duidelijke beschrijvende namen voor je commit messages
