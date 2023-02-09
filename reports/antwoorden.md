@@ -478,10 +478,9 @@ Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het
  &#9997; Antwoord 2c
 </div>
 
-Schrijven:
-- Learning rate naar aanleiding van onderstaande aangepast en ep: 50 getraind. 0.82 gehaald. 
-- Voor de zekerheid nog een keer met ep: 150 uitvoeren. 
-- Reflc waarom het resultaat toch tegen valt. 
+Om te achterhalen wat de prijswinnende settings zijn heb ik de waardes uit RUN 1 gebruikt om 2c_model_design.py te maken. Vervolgens heb ik gekeken wanneer het beste resultaat behaald wordt door het model 150 epochs te laten draaien, zie fig. 14.
+
+
 
 <figure>
   <p align = "center">
@@ -492,6 +491,8 @@ Schrijven:
   </p>
 </figure>
 
+In fig. 14 is af te lezen dat het beste resultaat behaald is tijdens de 56ste epoch. In fig. 15 (hieronder) is te zien, aan de loss (test) ratio, dat het beste model rond de 51ste epoch bevindt. 
+
 <figure>
   <p align = "center">
     <img src="img/model_design_loss_test.png" style="width:100%">
@@ -500,6 +501,8 @@ Schrijven:
     </figcaption>
   </p>
 </figure>
+
+In fig. 16 (hieronder) is aan de hand van de loss (train) ratio te zien dat het model na ongeveer de 35ste epoch niet meer leert met uitzondering van twee kleine golfjes rond de 50ste epoch en rond de 58ste epoch. 
 
 <figure>
   <p align = "center">
@@ -510,6 +513,27 @@ Schrijven:
   </p>
 </figure>
 
+Na aanleiding van bovengenoemde resultaten en met namen het resultaat in fig. 14 besloten om 56 epochs aan te houden als beste instelling voor mijn model. Om er zeker van te zijn dat dit het beste model is, deze nogmaals gedraaid met de prijswinnende instellingen, zie fig. 17 en 18.
+
+<figure>
+  <p align = "center">
+    <img src="img/model_design_FINAL.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 17. Loss/test, Loss/train en learning rate beste model</b>
+    </figcaption>
+  </p>
+</figure>
+
+<figure>
+  <p align = "center">
+    <img src="img/model_design_FINAL_Graph.png" style="width:100%">
+    <figcaption align="center">
+      <b> Fig 18. Nauwkeurigheid beste model</b>
+    </figcaption>
+  </p>
+</figure>
+
+Vanuit zowel de loss/test als de loss/train ratio in fig. 17 is op te maken dat de beste aantal 
 
 ## Vraag 3
 
