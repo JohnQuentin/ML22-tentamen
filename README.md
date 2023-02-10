@@ -1,9 +1,9 @@
 # Opdracht Machine Learning 
-## Master of Informatics - Applied Data Science
-## HU University of Applied Sciences Utrecht
 
+Master of Informatics - Applied Data Science\
+HU University of Applied Sciences Utrecht\
 Student: J.J. van Meerten\
-St.Nr: 1715197\
+St.Nr: 1715197
 
 
 ```
