@@ -2,8 +2,8 @@
 ## Master of Informatics - Applied Data Science
 ## HU University of Applied Sciences Utrecht
 
-Student: J.J. van Meerten
-St.Nr: 1715197
+Student: J.J. van Meerten\
+St.Nr: 1715197\
 
 
 ```
