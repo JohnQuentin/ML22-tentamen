@@ -48,6 +48,7 @@ class BaseSearchSpace(BaseModel):
 class LinearConfig(BaseSearchSpace):
     h1: int
     h2: int
+    h3: int
     dropout: float
 
 

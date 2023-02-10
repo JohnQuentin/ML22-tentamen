@@ -25,8 +25,10 @@ Wat vind je van de architectuur die hij heeft uitgekozen (een Neuraal netwerk me
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#9997; Antwoord 1a (deel 1)
 </div>
-Een Neural Netwerk met Linear Layers is een relatief simpel model (In_features -> size of each input, out_features –> size of each output en een bias). Doordat het een (relatief) simpel model is dat helpt het om overfitting te voorkomen. Vanwege de simpliciteit en snelheid is het een goed basismodel om mee te starten. Dit is ook direct het grote nadeel van dit model. Doordat het een (algemeen) simpel model is behaald het niet altijd de hoogt mogelijke nauwkeurigheid. Kijkend naar de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen.
-Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet de beste keuze. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video. 
+Het gekozen Neural Network met Linear Layers is een relatief simpel model. Het model bestaat uit de volgende elementen: 
+Input -> Linear Layer 1 -> ReLU -> Linear Layer 2 -> Dropout -> ReLU -> Lenear Layer 3 -> Output. 
+Vanwege de (relatieve) eenvoud van het model, helpt dit om overfitting te vermijden. Wegens de simpliciteit en snelheid is het een goed basismodel om mee te starten. Tegelijk is dit ook direct een groot nadeel van dit model. Omdat het een (algemeen) simpel model is behaald het niet (altijd) de hoogt mogelijke nauwkeurigheid. In relatie tot de data en de vraag zal er dus gekeken moeten worden naar een meer specifiek model om een hogere nauwkeurigheid te behalen. Voor dit specifieke probleem, zijnde classificatie van audio, is een model zoals deze niet (volledig) passend. Om een hogere nauwkeurigheid te behalen kan er gekeken worden naar convolutional neural networks (CNNs) of misschien zelfs beter: Recurrent Neural Networks (RNN). RNN zijn specifiek goed in sequentiële gegevens zoals tekst, audio en video.
+
 
 <br>
 
@@ -42,7 +44,7 @@ Wat vind je van de keuzes die hij heeft gemaakt in de LinearConfig voor het aant
  &#9997; Antwoord 1a (deel 2)
 </div>
 
-De vraagstelling vanuit de collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (n=10) uitgesproken in het Arabic door mannelijke en vrouwelijke (cat. n=2) sprekers. Dit betekent dat er in totaal 20 classes zijn die geïdentificeerd dienen te worden. Kijkend naar het geschreven model zien we het volgende:
+De vraag vanuit de betreffende collega is om de data te classificeren. De data bestaat uit getalen van nul tot negen (_n_=10), uitgesproken in het Arabic door mannelijke (_n_=44) en vrouwelijke sprekers (_n_=44). Dit resulteert in totaal 20 classes die geïdentificeerd dienen te worden. Kijkend naar het model geschreven door de collega zien we het volgende:
 ```
 (Getalen overgenomen om het leesbaar te maken)
 nn.Linear(config["13"], config["100"]),
@@ -52,9 +54,14 @@ nn.Dropout(config["0.5"]),
 nn.ReLU(),
 nn.Linear(config["10"], config["20"]),
 ```
-De stappen die gemaakt worden in dit model zijn nogal groot. Van 13 units naar 100 units is een vrij grote stapt. Vervolgens wordt er een rectified linear unit (ReLU) toegepast als activatie functie (f(x)=max(0,x). De volgende stap is ook erg groot namelijk van 100 units terug naar 10 units. Daarna wordt er een Dropout functie toegepast om overfitting te voorkomen. Ook deze staat erg hoog afgesteld namelijk op 0.5 (i.e. de helft van de neurons wordt uitgeschakeld). Volgens de literatuur staat de dropout gebruikelijk tussen de 0.2 en 0.5. Na de dropout wordt er opnieuw een ReLU toegepast. Tot slot wordt er nog één stap gezet van 10 units naar 20 units. Gezien de vraag is een output van 20 units logisch. 
+De stappen in het model zijn (relatief) groot. Van 13 units (aantal attributen) naar 100 units is een relatief grote stap. Vervolgens wordt er een rectified linear unit (ReLU) toegepast als activatie functie (f(x)=max(0,x). De volgende stap is ook relatief groot namelijk: van 100 units naar 10 units. Aansluitend wordt er een Dropout functie toegepast om overfitting te voorkomen. De Dropout staat ingesteld op 0.5. Dit is een relatief hoge waarde wat resulteert in het feit dat de helft van de neurons worden uitgeschakeld. Vanuit de literatuur wordt geadviseerd om de Dropout in te stellen tussen de 0.2 en 0.5. Na de Dropout wordt er opnieuw een ReLU toegepast. Tot slot wordt er nog één stap gezet van 10 units naar 20 units. Gezien de vraag is een output van 20 logisch. De stap van 10 units terug naar 20 units is minder logisch. 
+Mijn advies aan de college zou zijn: 
+-	Dropout terug brengen naar 0.2.
+-	Logische verdeling maken qua grote van units in de nn.Linear functie.
+-	Gezien omvang van de data, kijken of er een extra laag toegevoegd kan worden. 
+Met het toevoegen van een extra laag kunnen de units beter verdeeld worden. In een handmatige test met de volgende configuratie (zie hieronder) is een nauwkeurigheid behaald van 0.7394 (zonder extra laag) en 0.7470 (met extra laag)
 
-Mijn advies in deze zou zijn om de Dropout terug te brengen naar 0.2 en een logische verdeling te maken qua grote van units in de nn.Linear functie. Daarnaast, gezien de omvang van de data, is het ook verstandig om te kijken na een extra laag. Met het toevoegen van een extra laag kunnen de units beter verdeeld worden. In een handmatige test met de volgende configuratie is een nauwkeurigheid behaald van 0.7394
+_Dropout 0.2, logische verdeling, zonder extra laag_
 ```
 nn.Linear(config["13"], config["64"]),
 nn.ReLU(),
@@ -63,7 +70,17 @@ nn.Dropout(config["0.2"]),
 nn.ReLU(),
 nn.Linear(config["32"], config["20"]),
 ```
-
+_Dropout 0.2, logische verdeling, met extra laag_
+```
+nn.Linear(config["13"], config["64"]),
+nn.ReLU(),
+nn.Linear(config["64"], config["128"]),
+nn.Dropout(config["0.2"]),
+nn.Linear(config["128"], config["32"]),
+nn.Dropout(config["0.2"]),
+nn.ReLU(),
+nn.Linear(config["32"], config["20"]),
+```
 
 ## 1b
 Als je in de forward methode van het Linear model kijkt (in `tentamen/model.py`) dan kun je zien dat het eerste dat hij doet `x.mean(dim=1)` is.
@@ -89,7 +106,7 @@ De complete functie is
         x = self.encoder(x)
         return x
 ```
-Het deel x.mean(dim=1) pakt het gemiddelde van alles regels in een block. Uitkomst is één regel met 13 groepen van getallen. (e.g. -2.5929 -2.889 0.29554 -0.067409 0.28635 0.20898 0.41408 0.38878 0.37271 0.16329 0.0050341 0.12431 0.44326). Door dit te doen is het probleem opgelost dat de blocks verschillende lengtes hebben. Nadeel hiervan is wel dat er veel informatie verloren gaat. Deze stap is nodig omdat het gekozen model niet overweg kan met verschillende block lengtes. 
+Het deel x.mean(dim=1) pakt het gemiddelde van alle regels in een block. Uitkomst is één regel met 13 getallen (13 attributen) (e.g. -2.5929 -2.889 0.29554 -0.067409 0.28635 0.20898 0.41408 0.38878 0.37271 0.16329 0.0050341 0.12431 0.44326). Deze oplossing lost het probleem op van de variabele lengte van de blocks. Deze stap is nodig omdat et gekozen model niet overweg kan met verschillende block lengtes. 
 
 
 
@@ -109,12 +126,10 @@ Andere opties zijn:
 nn.Flatten(), nn.AvgPool2d(), nn.MaxPool2d()
 
 
-- Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
-
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#10002; Vraag 1b (deel 3)
 <br>
-Hoe had hij dit ook kunnen oplossen?
+Wat zijn voor een nadelen van de verschillende manieren om deze stap te doen?
 </div>
 
 <br>
@@ -288,7 +303,7 @@ Implementeer de hypertuning voor jouw architectuur:
 </div>
 
 
-Vanuit vraag 1 is naar voren gekomen dat een hidden van 128, Dropout van 0.2 en een Num_layers van 4 tot nu toe het beste resultaat heeft gegeven. vanuit een search online is naar voren gekomen dat het ook verstandig is om de batchsize mee te nemen in het hypertunen. Daarom deze ook meegenomen in de SearchSpace. 
+Vanuit vraag 1 is naar voren gekomen dat een hidden van 128, Dropout van 0.2 en een Num_layers van 4 tot nu toe het beste resultaat heeft gegeven. Vanuit een search online is naar voren gekomen dat het ook verstandig is om de batchsize mee te nemen in het hypertunen. Daarom deze ook meegenomen in de SearchSpace. 
 
 Voor de eerste run de SearchSpace ingesteld met enige ruimte rond de parameters die in vraag 1 het beste resultaat hebben opgeleverd. 
 
@@ -361,7 +376,7 @@ In onderstaande scatter plot (Fig. 6) worden de zelfde resultaten weergegeven al
   </p>
 </figure>
 
-Kijkend naar de spreiding per onderdeel is het lastig om te bepalen of dit nu het beste resultaat heeft opgeleverd. De nauwkeurigheid is immers maar iets hoger dan tijdens de handmatige fase (vraag 1d). Om te zien of er toch een beter resultaat te behalve valt heb ik nog een run gedraaid (run 2). In deze run besloten om de hidden meer te centreren rond de waarde waar het hoogte resultaat mee is behaald zijnde 171. Daarom de range ingesteld op 128, 256. Omdat de Num_layers hoogste resultaat heeft behaald met 5 deze verhoogt naar range 4, 8. Omdat de dropout een hoge nauwkeurigheid heeft behaald met zowel een lage als een hoge dropout heb ik deze niet veranderd. Omdat een lager batchsize alleen lage nauwkeurigheid heeft behaald als resultaat deze verhoogt om te zien of dit een positief effect zal hebben (range naar 256, 512). 
+Kijkend naar de spreiding per onderdeel is het lastig om te bepalen of dit nu het beste resultaat heeft opgeleverd. De nauwkeurigheid is immers maar iets hoger dan tijdens de handmatige fase (vraag 1d). Om te zien of er toch een beter resultaat te behalen valt heb ik nog een run gedraaid (run 2). In deze run besloten om de hidden meer te centreren rond de waarde waar het hoogte resultaat mee is behaald zijnde 171. Daarom de range ingesteld op 128, 256. Omdat de Num_layers hoogste resultaat heeft behaald met 5 deze verhoogt naar range 4, 8. Omdat de dropout een hoge nauwkeurigheid heeft behaald met zowel een lage als een hoge dropout heb ik deze niet veranderd. Omdat een lager batchsize alleen lage nauwkeurigheid heeft behaald als resultaat deze verhoogt om te zien of dit een positief effect zal hebben (range naar 256, 512).
 
 
 Run 2
@@ -407,7 +422,7 @@ In fig. 9 wordt run 2 weergegeven in gesepareerde scatter plots. Uit fig. 9 (bat
 
 Run 3
 
-Om er zeker van te zijn dat ik niet de verkeerde kant op aan het zoeken ben heb ik nog een derde run uitgevoerd. In deze run heb ik Num_layers en Batchsize juist verlaagt, zie tabel x. 
+Om er zeker van te zijn dat ik niet de verkeerde kant op aan het zoeken ben heb ik nog een derde run uitgevoerd. In deze run heb ik Num_layers en Batchsize juist verlaagt, zie tabel hieronder. 
 
 |Subject|Between| 
 |---|---|
@@ -459,8 +474,7 @@ Om een volledig overzicht te creëren wordt in fig. 13 alle parallel coordinates
   </p>
 </figure>
 
-In fig. 13 is te zien dat de rode lijn in alle drie de plots enigszins op dezelfde wijze loopt. Dit geeft het idee dat er een relatie is tussen deze parameters. De batchsize bepaald de aantal samples die in één passage wordt gebruikt. Een grotere batchsize resulteert vaak in een stabielere gradient. Dit vraagt wel meer geheugenruimte. Een kleine batchsize vraagt minder geheugenruimte maar kan resulteren in een ruisachtiger gradient. De dropout is een regularisatietechniek die overfitting helpt voorkomen. Deze techniek werkt door neuronen in het netwerk (tijdens de training) willekeurig te laten vallen. De enige relatie tussen deze twee parameters is dat ze beide het generalisatievermogen van het model beïnvloeden. Hidden kan lange termijn afhankelijkheden tussen de inputs vastleggen (wat nuttig is bij sequentiële gegevens). De dropout heeft invloed op de hidden van wege de regulerende functie die de dropout heeft. Tot slot kunnen we nog kijken naar de relatie tussen hidden en num_layers. Hierbij zien we dat de hidden de capaciteit van elke GRU-laag bepaald en de num_layers de diepte van het model bepaalt. Uit de literatuur is naar voren gekomen dat een model met veel hidden en veel num_layers niet per definitie beter is dan een model met weinig hidden en weinig num_layers. 
-Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het resultaat van RUN 1 te gebruiken. Dit wilt niet zeggen dat ik denk dat ik geen hoger resultaat kan behalen. Na onderzoek online denk ik dat ik een hoger resultaat kan behalen door een attention layer toe te voegen aan mijn GRU-model. Een attention layer stelt het GRU-model in staat zijn aandacht te richten op verschillende delen van de input, i.v.m. de gehele input te gebruiken. De attention layer kent gewichten toe aan elke tijdstap van de input om aan te geven hoe belangrijk die is voor de voorspelling van de output. De attention layer helpt het model om alleen op de meest relevante delen van de input te focussen. 
+In fig. 13 is te zien dat de rode lijn in alle drie de plots enigszins op dezelfde wijze loopt. Dit geeft het idee dat er een relatie is tussen deze parameters. De batchsize bepaald de aantal samples die in één passage wordt gebruikt. Een grotere batchsize resulteert vaak in een stabielere gradient. Dit vraagt wel meer geheugenruimte. Een kleine batchsize vraagt minder geheugenruimte maar kan resulteren in een ruisachtiger gradient. De dropout is een regularisatietechniek die overfitting helpt voorkomen. Deze techniek werkt door neuronen in het netwerk (tijdens de training) willekeurig te laten vallen. De enige relatie tussen deze twee parameters is dat ze beide het generalisatievermogen van het model beïnvloeden. Hidden kan lange termijn afhankelijkheden tussen de inputs vastleggen (wat nuttig is bij sequentiële gegevens). De dropout heeft invloed op de hidden vanwege de regulerende functie die de dropout heeft. Tot slot kunnen we nog kijken naar de relatie tussen hidden en num_layers. Hierbij zien we dat de hidden de capaciteit van elke GRU-laag bepaald en de num_layers de diepte van het model bepaalt. Uit de literatuur is naar voren gekomen dat een model met veel hidden en veel num_layers niet per definitie beter is dan een model met weinig hidden en weinig num_layers. Gezien de beschikbare ruimte en tijd besluit ik om als prijswinnende setting het resultaat van RUN 1 te gebruiken. Dit wilt niet zeggen dat ik denk dat ik geen hoger resultaat kan behalen. Na onderzoek online denk ik dat ik een hoger resultaat kan behalen door een attention layer toe te voegen aan mijn GRU-model. Een attention layer stelt het GRU-model in staat zijn aandacht te richten op verschillende delen van de input, i.v.m. de gehele input te gebruiken. De attention layer kent gewichten toe aan elke tijdstap van de input om aan te geven hoe belangrijk die is voor de voorspelling van de output. De attention layer helpt het model om alleen op de meest relevante delen van de input te focussen. 
 
 
 ### 2c
@@ -533,7 +547,7 @@ Na aanleiding van bovengenoemde resultaten en met namen het resultaat in fig. 14
   </p>
 </figure>
 
-Vanuit fig. 18 is op te maken dat met een resultaat van 0.9633 dit inderdaad de prijswinnende instellingen zijn. Het verschil met de laatste run uit vraag 1d is verwaarloosbaar. In fig. 17 (Loss/test) is af te lezen dat het laagste punt bereid wordt aan het eind van de gekozen aantal epochs. Dit geeft aan dat het model rond de gekozen aantal epochs het beste scored op niet eerder gebruikte data. In fig 17 (Loss/train) is af te lezen dat, met deze instellingen, vanaf halvewege er niet veel meer geleerd wordt. Tegelijk is te zien dat aan het eind er toch nog wat fluctuaties te zien zijn. Dit komt redelijk overeen met wat in fig. 17 (learning_rate) af te lezen is. 
+Vanuit fig. 18 is op te maken dat met een resultaat van 0.9633 dit inderdaad de prijswinnende instellingen zijn. Het verschil met de laatste run uit vraag 1d is verwaarloosbaar. In fig. 17 (Loss/test) is af te lezen dat het laagste punt bereid wordt aan het eind van de gekozen aantal epochs. Dit geeft aan dat het model rond de gekozen aantal epochs het beste scored op niet eerder gebruikte data. In fig 17 (Loss/train) is af te lezen dat, met deze instellingen, vanaf halverwege er niet veel meer geleerd wordt. Tegelijk is te zien dat aan het eind er toch nog wat fluctuaties te zien zijn. Dit komt redelijk overeen met wat in fig. 17 (learning_rate) af te lezen is. 
 
 ## Conclusie
 

@@ -24,8 +24,10 @@ class Linear(nn.Module):
             nn.ReLU(),
             nn.Linear(config["h1"], config["h2"]),
             nn.Dropout(config["dropout"]),
+            nn.Linear(config["h2"], config["h3"]),
+            nn.Dropout(config["dropout"]),
             nn.ReLU(),
-            nn.Linear(config["h2"], config["output"]),
+            nn.Linear(config["h3"], config["output"]),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
