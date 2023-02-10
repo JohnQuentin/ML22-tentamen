@@ -1,5 +1,6 @@
-from typing import Dict
 from pathlib import Path
+from typing import Dict
+
 import ray
 import torch
 from filelock import FileLock
@@ -10,11 +11,10 @@ from ray.tune.search.bohb import TuneBOHB
 
 from tentamen.data import datasets
 from tentamen.model import Accuracy, grumodel
-
-from tentamen.train import trainloop
 from tentamen.settings import grumodelSearchSpace, presets
+from tentamen.train import trainloop
 
-#def train(config: Dict) -> None:
+# def train(config: Dict) -> None:
 #    datadir = presets.datadir
 #
 #    with FileLock(datadir / ".lock"):
@@ -36,6 +36,7 @@ from tentamen.settings import grumodelSearchSpace, presets
 #        eval_steps=len(teststreamer),
 #        tunewriter=True,
 #    )
+
 
 def train(config: Dict) -> None:
     datadir = presets.datadir
@@ -59,6 +60,7 @@ def train(config: Dict) -> None:
         eval_steps=len(teststreamer),
         tunewriter=True,
     )
+
 
 if __name__ == "__main__":
     ray.init()
@@ -96,7 +98,7 @@ if __name__ == "__main__":
 
     ray.shutdown()
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    ray.init()
 #
 #    config = LinearSearchSpace(

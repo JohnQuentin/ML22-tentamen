@@ -62,7 +62,9 @@ class gru_modelConfig(BaseSearchSpace):
     dropout: float
     num_layers: int
 
-#Onderstaande ingestelde settings zoals verzocht in vraag 2c
+
+# Onderstaande ingestelde settings zoals verzocht in vraag 2c
+
 
 class grumodelSearchSpace(BaseSearchSpace):
     hidden: Union[int, SAMPLE_INT] = tune.randint(64, 256)

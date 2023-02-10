@@ -533,7 +533,13 @@ Na aanleiding van bovengenoemde resultaten en met namen het resultaat in fig. 14
   </p>
 </figure>
 
-Vanuit zowel de loss/test als de loss/train ratio in fig. 17 is op te maken dat de beste aantal 
+Vanuit fig. 18 is op te maken dat met een resultaat van 0.9633 dit inderdaad de prijswinnende instellingen zijn. Het verschil met de laatste run uit vraag 1d is verwaarloosbaar. In fig. 17 (Loss/test) is af te lezen dat het laagste punt bereid wordt aan het eind van de gekozen aantal epochs. Dit geeft aan dat het model rond de gekozen aantal epochs het beste scored op niet eerder gebruikte data. In fig 17 (Loss/train) is af te lezen dat, met deze instellingen, vanaf halvewege er niet veel meer geleerd wordt. Tegelijk is te zien dat aan het eind er toch nog wat fluctuaties te zien zijn. Dit komt redelijk overeen met wat in fig. 17 (learning_rate) af te lezen is. 
+
+## Conclusie
+
+Zoals eerder aangegeven is het beste resultaat zonder het toevoegen van een attention layer rond de 0.96XX. Gezien de vraag en de dataset is mijn persoonlijke inschatting dat een foutmarge van 0.04 acceptabel is. Mocht de vraag zijn om meer specifiek inzicht te krijgen in de nauwkeurigheid van het model is het verstandig om een analyse te doen aan de hand van een confusion matrix. 
+
+
 
 ## Vraag 3
 
@@ -554,6 +560,33 @@ Vanuit zowel de loss/test als de loss/train ratio in fig. 17 is op te maken dat 
 <div style="border-radius: 10px; background: ghostwhite; padding: 10px;">
  &#9997; Antwoord 3a
 </div>
+
+Het resultaat van _make format && make lint_:
+```
+make format && make lint
+poetry run isort dev
+Fixing /home/azureuser/Tentamen/ML22-tentamen/dev/scripts/02_tune.py
+poetry run black dev
+reformatted dev/scripts/2c_model_design.py
+reformatted dev/scripts/01_gru_model.py
+reformatted dev/scripts/02_tune.py
+
+All done! ✨ 🍰 ✨
+3 files reformatted, 2 files left unchanged.
+poetry run isort tentamen
+poetry run black tentamen
+reformatted tentamen/settings.py
+reformatted tentamen/model.py
+
+All done! ✨ 🍰 ✨
+2 files reformatted, 6 files left unchanged.
+poetry run flake8 dev
+poetry run flake8 tentamen
+tentamen/model.py:50:8: N801 class name 'grumodel' should use CapWords convention
+tentamen/settings.py:60:8: N801 class name 'gru_modelConfig' should use CapWords convention
+tentamen/settings.py:69:8: N801 class name 'grumodelSearchSpace' should use CapWords convention
+```
+Bovenstaande aangepast naar CapWords convention.
 
 ---
 

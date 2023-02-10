@@ -46,6 +46,7 @@ class Accuracy:
         """
         return (yhat.argmax(dim=1) == y).sum() / len(yhat)
 
+
 class grumodel(nn.Module):
     def __init__(self, config: Dict) -> None:
         super().__init__()
